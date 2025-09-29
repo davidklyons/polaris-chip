@@ -15,6 +15,7 @@
     "start": "web-dev-server"
   },
   "dependencies": {
+    "@haxtheweb/meme-maker": "^11.0.5",
     "lit": "^3.1.2"
   },
   "devDependencies": {
