@@ -16,68 +16,80 @@
       font-family: sans-serif;
       background-color: #ededed;
     }
-    polaris-chip {
+
+    my-card {
       margin: 16px;
     }
+
+    /* Demonstrating CSS variables */
+    my-card[fancy] {
+      --my-card-fancy-bg: #FF0000;
+      --my-card-fancy-border: yellow;
+      --my-card-fancy-color: white;
+    }
   </style>
+
   <title>polaris-chip / my-card</title>
 </head>
 
 <body>
-  <h1>polaris-chip</h1>
-  <!-- this is going to do whatever the tag's defaults are -->
-  <polaris-chip title="News of Record" link="https://psu.edu/"></polaris-chip>
-  <polaris-chip title="Faculty and Staff"></polaris-chip>
-  <polaris-chip title="Sports are the only thing that matter"></polaris-chip>
-  <polaris-chip title="Grants and donations"></polaris-chip>
+  <h1>my-card demo</h1>
 
-  <h1>my-card</h1>
+  <!-- Minnesota Wild card -->
+  <my-card title="Minnesota Wild">
+    <p>
+      A professional hockey team, yet they have terrible colors.  
+      I wish I had a <strong>AWESOME</strong> neon yellow / lime jersey like their retro-reverse jerseys.
+    </p>
+  </my-card>
 
-  <h1>my-card</h1>
+  <!-- Pokémon cards -->
+  <my-card 
+    title="Piplup" 
+    image="https://tse3.mm.bing.net/th/id/OIP.ODZcxyLw49N8N88hjvfwvgHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" 
+    attackTitle="Bubble" 
+    attackText="Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed." 
+    link="https://hax.psu.edu">
+    <p>Piplup is a Water-type Pokémon from the Sinnoh region.</p>
+  </my-card>
 
-<my-card 
-  title="Piplup" 
-  image="https://tse3.mm.bing.net/th/id/OIP.ODZcxyLw49N8N88hjvfwvgHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" 
-  attackTitle="Bubble" 
-  attackText="Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed." 
-  link="https://hax.psu.edu">
-</my-card>
+  <my-card 
+    title="Charmander" 
+    image="https://i.pinimg.com/originals/d8/fb/d3/d8fbd3fd23b10cfc5a9111d48d343cf4.jpg" 
+    attackTitle="Flamethrower" 
+    attackText="Deals 60 damage to opponent." 
+    link="https://hax.psu.edu">
+    <p>Charmander loves sunny days and can breathe fire.</p>
+  </my-card>
 
-<my-card 
-  title="Charmander" 
-  image="https://i.pinimg.com/originals/d8/fb/d3/d8fbd3fd23b10cfc5a9111d48d343cf4.jpg" 
-  attackTitle="Flamethrower" 
-  attackText="Deals 60 damage to opponent." 
-  link="https://hax.psu.edu">
-</my-card>
+  <my-card 
+    title="Bulbasaur" 
+    image="https://wallsdesk.com/wp-content/uploads/2017/01/Bulbasaur-Pictures.jpg" 
+    attackTitle="Vine Whip" 
+    attackText="Deals 30 damage." 
+    link="https://hax.psu.edu">
+    <p>Bulbasaur has a plant bulb on its back that grows as it evolves.</p>
+  </my-card>
 
-<my-card 
-  title="Bulbasaur" 
-  image="https://wallsdesk.com/wp-content/uploads/2017/01/Bulbasaur-Pictures.jpg" 
-  attackTitle="Vine Whip" 
-  attackText="Deals 30 damage." 
-  link="https://hax.psu.edu">
-</my-card>
+  <my-card 
+    title="Squirtle" 
+    image="https://vignette.wikia.nocookie.net/sonic-pokemon-unipedia/images/4/4d/7-1.png/revision/latest?cb=20131031034850" 
+    attackTitle="Water Gun" 
+    attackText="Shoots a powerful stream of water." 
+    link="https://hax.psu.edu">
+    <p>Squirtle is a small, blue turtle Pokémon that loves water.</p>
+  </my-card>
 
-<my-card 
-  title="Squirtle" 
-  image="https://vignette.wikia.nocookie.net/sonic-pokemon-unipedia/images/4/4d/7-1.png/revision/latest?cb=20131031034850" 
-  attackTitle="Water Gun" 
-  attackText="Shoots a powerful stream of water." 
-  link="https://hax.psu.edu">
-</my-card>
+  <my-card 
+    title="Eevee" 
+    image="https://tse4.mm.bing.net/th/id/OIP.7SJSI1V9KiLiGO57o34XPQHaIO?rs=1&pid=ImgDetMain&o=7&rm=3"  
+    attackTitle="Quick Attack" 
+    attackText="Flip a coin. If heads, does 10 more damage." 
+    link="https://hax.psu.edu">
+    <p>Eevee can evolve into many different forms depending on conditions.</p>
+  </my-card>
 
-<my-card 
-  title="Eevee" 
-  image="https://tse4.mm.bing.net/th/id/OIP.7SJSI1V9KiLiGO57o34XPQHaIO?rs=1&pid=ImgDetMain&o=7&rm=3"  
-  attackTitle="Quick Attack" 
-  attackText="Flip a coin. If heads, does 10 more damage." 
-  link="https://hax.psu.edu">
-</my-card>
-
-  <!-- this is what is bringing in the definition for this tag -->
-  <script type="module" src="./src/polaris-chip.js"></script>
+  <!-- Scripts -->
   <script type="module" src="./src/my-card.js"></script>
 </body>
-
 </html>

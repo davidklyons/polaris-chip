@@ -1,16 +1,8 @@
 import { LitElement, html, css } from 'lit';
 
-/**
- * Now it's your turn. Here's what we need to try and do:
- * 1. Get you HTML from your card working in here 
- * 2. Get your CSS rescoped as needed to work here
- */
-
 export class MyCard extends LitElement {
 
-  static get tag() {
-    return 'my-card';
-  }
+  static get tag() { return 'my-card'; }
 
   static get properties() {
     return {
@@ -18,7 +10,8 @@ export class MyCard extends LitElement {
       image: { type: String },
       attackTitle: { type: String },
       attackText: { type: String },
-      link: { type: String }
+      link: { type: String },
+      fancy: { type: Boolean, reflect: true } // NEW
     };
   }
 
@@ -29,47 +22,37 @@ export class MyCard extends LitElement {
     this.attackTitle = "Bubble";
     this.attackText = "Flip a coin. If heads, your opponent's Active Pokémon is now Paralyzed.";
     this.link = "https://hax.psu.edu"; 
-   }
+    this.fancy = false; // default
+  }
 
   static get styles() {
     return css`
-      .card {
+      :host {
+        display: block;
         width: 300px;
-        border: 12px solid #ffe165;
         border-radius: 12px;
-        background: linear-gradient(145deg, #2ea1da, #47b7f5);
-        padding: 16px;
+        background: var(--my-card-bg, linear-gradient(145deg, #2ea1da, #47b7f5));
+        color: var(--my-card-color, #000);
+        margin: 20px auto;
+        overflow: hidden;
         box-sizing: border-box;
         text-align: center;
-        margin: 20px auto;
         position: relative;
-        overflow: hidden;
+        transition: all 0.3s ease-in-out;
       }
 
-      .card::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -50%;
-        width: 50%;
-        height: 100%;
-        background: rgba(255,255,255,0.2);
-        transform: skewX(-25deg);
-        pointer-events: none;
-        animation: shine 2s infinite;
-      }
-
-      @keyframes shine {
-        0% { left: -50%; }
-        100% { left: 100%; }
+      :host([fancy]) {
+        background: var(--my-card-fancy-bg, #FF0000);
+        color: var(--my-card-fancy-color, #fff);
+        box-shadow: 10px 5px 15px rgba(0,0,0,0.5);
       }
 
       .card-title {
         font-weight: bold;
         font-size: 1.2rem;
         padding: 12px;
-        background: linear-gradient(145deg, #f5f5f5, #d0d0d0, #e0e0e0, #c0c0c0, #f0f0f0);
-        border: 2px solid #ccc;
+        background: var(--my-card-title-bg, linear-gradient(145deg, #f5f5f5, #d0d0d0));
+        border: 2px solid var(--my-card-title-border, #ccc);
         border-radius: 6px;
         margin: 0 8px;
       }
@@ -77,8 +60,8 @@ export class MyCard extends LitElement {
       .card-image-container {
         width: 225px;
         height: 200px;
-        background: #fff;
-        border: 2px solid #dfdee3;
+        background: var(--my-card-image-bg, #fff);
+        border: 2px solid var(--my-card-image-border, #dfdee3);
         border-radius: 8px;
         overflow: hidden;
         margin: 12px auto;
@@ -91,7 +74,7 @@ export class MyCard extends LitElement {
       }
 
       .card-attack {
-        background: rgba(255,255,255,0.85);
+        background: var(--my-card-attack-bg, rgba(255,255,255,0.85));
         border-radius: 8px;
         padding: 8px;
         margin: 0 12px;
@@ -99,41 +82,72 @@ export class MyCard extends LitElement {
         font-size: 0.9rem;
       }
 
-      .card-footer {
-        margin-top: 12px;
-        text-align: center;
+      details summary {
+        text-align: left;
+        font-size: 1rem;
+        padding: 6px;
+        cursor: pointer;
       }
 
-      .details-button {
+      details div {
+        border: 2px solid black;
+        text-align: left;
+        padding: 8px;
+        height: 70px;
+        overflow: auto;
+        background: white;
+        color: black;
+      }
+
+      .card-footer a {
         text-decoration: none;
         padding: 8px 16px;
-        background: linear-gradient(135deg, #ffe165, #ffb800);
-        color: #222;
+        background: var(--my-card-link-bg, linear-gradient(135deg, #ffe165, #ffb800));
+        color: var(--my-card-link-color, #222);
         font-weight: bold;
         border-radius: 8px;
         border: 2px solid #fff;
       }
+
+      slot {
+        display: block;
+        margin-top: 8px;
+      }
     `;
+  }
+
+  openChanged(e) {
+    // toggle fancy based on <details> open state
+    if (e.target.hasAttribute('open')) {
+      this.fancy = true;
+    } else {
+      this.fancy = false;
+    }
   }
 
   render() {
     return html`
-        <div class="card">
-        <h1 class="card-title">${this.title}</h1>
-        <div class="card-image-container">
-          <img src="${this.image}" alt="${this.title}" class="card-image">
+      <h1 class="card-title">${this.title}</h1>
+      <div class="card-image-container">
+        <img src="${this.image}" alt="${this.title}" class="card-image">
+      </div>
+      <div class="card-attack">
+        <h4>${this.attackTitle}</h4>
+        <p>${this.attackText}</p>
+      </div>
+
+      <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+        <summary>Description</summary>
+        <div>
+          <slot></slot>
         </div>
-        <div class="card-attack">
-          <h4>${this.attackTitle}</h4>
-          <p>${this.attackText}</p>
-        </div>
-        <div class="card-footer">
-          <a href="${this.link}" class="details-button">Details</a>
-        </div>
+      </details>
+
+      <div class="card-footer">
+        <a href="${this.link}">Details</a>
       </div>
     `;
   }
+}
 
-  }
-
-globalThis.customElements.define(MyCard.tag, MyCard);
+customElements.define(MyCard.tag, MyCard);
