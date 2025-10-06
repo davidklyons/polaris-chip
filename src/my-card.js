@@ -132,8 +132,13 @@ export class MyCard extends LitElement {
       ${this.image
         ? html`
           <div class="card-image-container">
-            <img src="${this.image}" alt="${this.title}" class="card-image" />
-          </div>
+            <meme-maker
+              image-url="${this.image}"
+              alt="${this.title}"
+              top-text="${this.title}"
+              bottom-text="${this.attackTitle}">
+            </meme-maker>
+        </div>
         `
         : ''}
 
